@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+</head>
+<body>
+<div>
+  <h1>文章列表</h1>
+{% for i in own %}
+    <a href="/myblog/article_detail/">{{i.title}}</a><br>
+
+{% endfor %}
+<a href="{% url 'myblog:index'%}">返回播客主页</a>
+
+</div>
+
+</body>
+</html>
