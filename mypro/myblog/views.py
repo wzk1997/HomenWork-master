@@ -68,7 +68,7 @@ def article(req):
         user = models.User.objects.get(pk=1)
         upload = models.Article(title=title, coutext=coutext, author=user)
         upload.save()
-    return render(req, 'myblog/index.html')
+    return render(req, 'myblog/index.html' )
 
 
 @csrf_exempt
