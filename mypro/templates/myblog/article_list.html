@@ -5,13 +5,29 @@
     <title>文章列表</title>
 </head>
 <body>
-<div>
+<div align="center">
   <h1>文章列表</h1>
-{% for i in own %}
-    <a href="/myblog/article_detail/">{{i.title}}</a><br>
 
-{% endfor %}
-<a href="{% url 'myblog:index1'%}">返回播客主页</a>
+{{user.name}}
+    {% for i in articles.object_list %}
+        {{ i.title }}<br>
+        {% empty %}
+            没数据
+    {% endfor%}
+
+    {%if articles.has_other_pages %}
+        {% for num in articles.paginator.page_range %}
+            <a href="/myblog/article_list">{{ num }}</a>
+        {% endfor %}
+        {{page.number}}
+    {% endif %}
+
+    {% if articles.has_previous %}
+    <a href="/myblog/article_list">首页</a>
+    {% endif %}
+
+
+
 
 </div>
 

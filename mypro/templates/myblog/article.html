@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>编辑文章</title>
+    <script>
+        #img{
+            background:url(/static/)
+        }
+    </script>
 </head>
-<body background="<img src="" >">
+<body id="img">
 <div align="center">
     <h1>编辑文章</h1>
     <form action="/myblog/article/" method="post">
         {% csrf_token %}
         <table>
             <tr>
-                <td>请输入标题：<input type="text" name="title" autocomplete="off"></td>
+                <td>输入标题：<input type="text" name="title" autocomplete="off"></td>
             </tr>
-
+            <tr>
+                <td>作者性名:<input type="text" autocomplete="off" name="author"></td>
+            </tr>
             <tr>
                 <td><textarea name="coutext" id="" cols="40" rows="10" placeholder="请输入文章内容"></textarea></td>
             </tr>
+
             <tr>
                 <td><input type="submit"></td>
             </tr>
@@ -31,6 +39,7 @@ tinyMCE.init({
         'width':700,
         'height':600,
 })
+
 </script>
 </body>
 </html>

@@ -14,6 +14,9 @@ class User(models.Model):
     # man = Management()
     avatar= models.ImageField(upload_to='static/images/')
 
+    def __str__(self):
+        a=self.name
+        return a
     @classmethod
     def reg(cls, name, password):
         um = cls(name=name, password=password)
@@ -26,6 +29,9 @@ class Article(models.Model):
     coutext = HTMLField()
     author = models.ForeignKey(User)
 
+    def __str__(self):
+        a=self.title
+        return a
     @classmethod
     def text(cls, title, coutext):
         T = cls(title=title, coutext=coutext)

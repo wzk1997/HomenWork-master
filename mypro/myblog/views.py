@@ -5,6 +5,8 @@ from . import utils
 from io import BytesIO
 from django.views.decorators.csrf import csrf_exempt
 from django.forms.models import model_to_dict
+from django.core.cache import cache
+from django.core.paginator import Paginator, Page,PageNotAnInteger,EmptyPage
 
 
 @csrf_exempt
@@ -65,22 +67,45 @@ def article(req):
     elif req.method == 'POST':
         title = req.POST.get('title')
         coutext = req.POST.get('coutext')
-        user = models.User.objects.get(pk=1)
-        upload = models.Article(title=title, coutext=coutext, author=user)
+        author = req .POST.get('user')
+        upload = models.Article(title=title, coutext=coutext, author=author)
         upload.save()
-    return render(req, 'myblog/index.html' )
+    return render(req, 'myblog/index.html')
 
 
 @csrf_exempt
 # 列表页面
 def article_list(req):
-    if req.method == 'GET':
-        own = models.Article.objects.all()
-        print(own)
-        context = {
-            'own': own
-        }
-        return render(req, 'myblog/article_list.html', context)
+    # if req.method == 'GET':
+    #     print('缓存中获取')
+    #     users = cache.get('name')
+    #     print(users)
+    #     if users is None:
+    #         print('数据库查询')
+    #         users = models.User.objects.all()
+    #         print('存入缓存')
+    #         cache.set('name', users)
+    #     own = models.Article.objects.all()
+    #     context = {'own': own}
+    # 使用分页
+    article_list1 = models.Article.objects.all().order_by('title')
+    print(article_list1)
+    pajinator = Paginator(article_list1, 5)
+
+    pagnum = req.GET.get('pagnum')
+
+    try:
+        articles = pajinator.page(pagnum)
+    except PageNotAnInteger:
+        articles=pajinator.page(1)
+    except EmptyPage:
+        articles=pajinator.page(pajinator.num_pages)
+
+    # title = models.Article.objects.all()
+    # pagena = Paginator(title, 200)
+    #
+    # paga = pagena.page(pagnum)
+    return render(req, 'myblog/article_list.html', {'articles': articles})
 
 
 @csrf_exempt
@@ -106,6 +131,6 @@ def addutils(req):
 # Create your views here.
 @csrf_exempt
 def jsontext(req):
-    u = models.User.objects.get(pk=1)
+    u = models.User.objects.get(pk=13)
     u = model_to_dict(u)
     return JsonResponse(u)
