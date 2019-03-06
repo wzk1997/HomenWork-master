@@ -19,7 +19,8 @@ from . import views
 
 app_name = 'myblog'
 urlpatterns = [
-    url(r'^index/', views.index, name='index1'),
+    url(r'^index/', views.index, name='index'),
+    url(r'^index1/', views.index1, name='index1'),
     url(r'^login', views.login, name='login'),
     url(r'^register/', views.regist, name='register'),
     # url(r'^default/',views.default,name='default'),

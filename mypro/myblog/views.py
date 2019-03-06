@@ -113,7 +113,8 @@ def article_list(req):
 def article_detail(req):
     if req.method == 'GET':
         return render(req, 'myblog/article_detail.html')
-
+def index1(req):
+    return  render(req,'myblog/index1.html')
 
 @csrf_exempt
 # 验证码
