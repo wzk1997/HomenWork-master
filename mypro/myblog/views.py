@@ -58,7 +58,19 @@ def regist(req):
 
     return render(req, 'myblog/register.html')
 
-
+#更改密码
+def lastpwd(req):
+    if req.method == 'GET':
+        return  render(req,'myblog/lastpwd.html')
+    elif req.method == 'POST':
+        name = req.POST.get('name')
+        print(name)
+        password=req.POST.get('pwd')
+        newpassword=req.POST.get('newpwd')
+        try:
+            pass
+        except:
+            pass
 @csrf_exempt
 # 编辑博客
 def article(req):
