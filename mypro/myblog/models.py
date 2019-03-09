@@ -10,9 +10,9 @@ class User(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
-    # avatar = models.CharField(max_length=255,default='myblog/images')
+    # avatar = models.CharField(max_length=255,default='myblog/img')
     # man = Management()
-    avatar= models.ImageField(upload_to='static/images/')
+    avatar= models.ImageField(upload_to='static/img/')
 
     def __str__(self):
         a=self.name
@@ -27,8 +27,8 @@ class Article(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=20)
     coutext = HTMLField()
-    author = models.ForeignKey(User)
-
+    author = models.CharField(max_length=20)
+    user= models.ForeignKey(User,on_delete=models.CASCADE)
     def __str__(self):
         a=self.title
         return a
